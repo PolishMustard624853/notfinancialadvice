@@ -1,5 +1,6 @@
 dreamteam repo aspires to be the best of the best of the best
 
+## Screenshots
 | Image | Description |
-| --- | ----------- |
-| !(Ready to Go)[./assets/images/hero.png] | Philosophy |
+| --- | ----------- | 
+| ![./assets/images/hero.png)](./assets/images/hero.png) | Philosophy |
