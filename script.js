@@ -23,6 +23,31 @@ document.body.appendChild(coinPrice);
 document.body.appendChild(coinVolume);
 
 
+// use jQuery 
+let bodyEl = $('body');
+
+getTrending();
+
+function getTrending() {
+    fetch(`https://api.coingecko.com/api/v3/search/trending`)
+    .then(response => response.json())
+    .then(myTrendingData => {
+
+        // console.log(myTrendingData.coins[0].item.name);
+        var coinPopularLength = myTrendingData.coins.length;
+        
+        for (var i = 0; i < coinPopularLength; i++) {
+            var coinPopularName = myTrendingData.coins[i].item.name;
+            // Top-7 trending coins on CoinGecko as searched by users in the last 24 hours (Ordered by most popular first)
+            var coinPopularLi = $(`<li class="coinPopularListItemEl">${coinPopularName}</li>`);
+            bodyEl.append(coinPopularLi);
+        }
+
+    });
+}
+
+document.body.appendChild(coinTrends);
+
 /* <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2884_RC01/embed_loader.js"></script>
 <script type="text/javascript">
   trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"buy bitcoin","geo":"","time":"2004-01-01 2022-04-11"},{"keyword":"buy ethereum","geo":"","time":"2004-01-01 2022-04-11"},{"keyword":"buy ripple","geo":"","time":"2004-01-01 2022-04-11"}],"category":0,"property":""}, {"exploreQuery":"date=all&q=buy%20bitcoin,buy%20ethereum,buy%20ripple","guestPath":"https://trends.google.com:443/trends/embed/"});
