@@ -1,0 +1,40 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.hero {
+    background-image: url(./assets/images/coins.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 50vh;
+    width: 100%;
+}
+
+.container-fluid {
+    font-size: 25px;
+}
+
+.navbar {
+    color: blue;
+    font-weight: bold;
+}
+
+.form-control {
+    color: black;
+}
+
+.search-btn {
+    color: white;
+    background-color: blue;
+}
+
+.search-btn:hover {
+    color: white;
+}
+
+.search-btn:active {
+    background-color: blue;
+    box-shadow: 0 5px white;
+    transform: translateY(4px);
+}
