@@ -1,5 +1,3 @@
-
-
 // use jQuery 
 var coinsDropdown = $('#dropdownMenuList');
 var coinsDropdownContainer = document.querySelector('#dropdownMenuList');
@@ -66,7 +64,7 @@ function checkPastSearches() {
         renderPastSearches();
     }
     else {
-        var placeholderSearchItemEl = $(`<li class="list-group-item">Prior city searches will appear here...</li>`);
+        var placeholderSearchItemEl = $(`<li class="list-group-item">Prior coin searches will appear here...</li>`);
         searchesContainerEl.append(placeholderSearchItemEl);
     }
 }
@@ -108,8 +106,6 @@ function storeCoinSearch(searchedCoinName) {
     // store userPastSearches item in local storage as strings 
     localStorage.setItem("userPastSearches", JSON.stringify(userPastSearches));
 }
-
-
 
 // function fetchyBoi() {
 //     // Fetch go here
