@@ -20,29 +20,17 @@ var searchButton = $('.search-btn');
 searchButton.on("click", function () {
         // call coinSearch(userCoinInputEl.val());
         // console.log(userCoinInputEl.val())
-        var test = userCoinInputEl.val();
-        getMessariData(test);
+        // var test = userCoinInputEl.val();
+        getMessariData(userCoinInputEl.val());
     });
 
 userCoinInputEl.keydown( e => {
     if (e.keyCode === 13) {
         e.preventDefault();
-        var test = userCoinInputEl.val();
-        getMessariData(test);
+        // var test = userCoinInputEl.val();
+        getMessariData(userCoinInputEl.val());
     } 
 });    
-
-var coinsDropdownContainer = document.querySelector('.past_search_container');
-
-// add event listener to the dropdown list items themselves
-coinsDropdownContainer.addEventListener("click", function(e) {
-    // use event delegation to ensure clean event matches the link list items 
-    if (e.target.matches('.dropdown-item')){
-        console.log(e.target.dataset.coin);
-        // storeCoinSearch(e.target.dataset.coin);
-    }
-});
-
 
 
 function getMessariData(userEntry) {

@@ -1,64 +1,53 @@
-// use jQuery 
-// var coinsDropdown = $('#dropdownMenuList');
-
-
-// get city name from user form
-var userCoinInputEl = $('#coin_input');
-// hook into button it clicking when a keyup equals enter in the form field
-var searchButton = $('.search_btn');
 
 // event listeners for button click or search
-searchButton.on("click", function () {
-        // call coinSearch(userCoinInputEl.val());
-    });
+$('.search-btn').on("click", function () {
+    // call local storage function
+    storeCoinSearch(userCoinInputEl.val());
+});
 
+// get coin name from user form
+var userCoinInputEl = $('#coin_input');
+// hook into button it clicking when a keyup equals enter in the form field
 userCoinInputEl.keydown( e => {
     if (e.keyCode === 13) {
+        // prevent form default behaviors
         e.preventDefault();
-        // call coinSearch(userCoinInputEl.val());
+        // call local storage function
+        storeCoinSearch(userCoinInputEl.val());
+        renderPastSearches();
     } 
 });    
 
-var coinsDropdownContainer = document.querySelector('.past_search_container');
+var coinsDropdownContainer = document.querySelector('#past_search_container');
 
 // add event listener to the dropdown list items themselves
 coinsDropdownContainer.addEventListener("click", function(e) {
     // use event delegation to ensure clean event matches the link list items 
     if (e.target.matches('.dropdown-item')){
-        console.log(e.target.dataset.coin);
-        // storeCoinSearch(e.target.dataset.coin);
+        // console.log(e.target.dataset.coin);
+        storeCoinSearch(e.target.dataset.coin);
+        userCoinInputEl.val(e.target.dataset.coin);
+        renderPastSearches();
     }
 });
 
-
 // LOCAL STORAGE
 // get local user storage data in order to append and/or render searches
-var userPastSearches = JSON.parse(localStorage.getItem("userPastSearches"));
+var userPastSearches = JSON.parse(localStorage.getItem("userPastSearches")) || [];
 
 // grab search container element for appending
-var searchesContainerEl = $(".past_search_container");
+var searchesContainerEl = $("#past_search_container");
 
-// check past searches and render them if they exist
-storeCoinSearch();
-checkPastSearches();
+renderPastSearches();
 
-// checks local storage to see if there's some data to grab and display
-function checkPastSearches() {
-    // check local storage to see if there's some data to grab and display
-    if (userPastSearches !== null) {
-        // if there is something, display it If not, go on with rendering a placeholder.
-        renderPastSearches();
-    }
-    else {
-        // old
-        // var placeholderSearchItemEl = $(`<li class="list-group-item">Prior coin searches will appear here...</li>`);
-        var placeholderSearchItemEl = $(`<li class="dropdown-item" >Prior coin searches will appear here...</li>`)
-        searchesContainerEl.append(placeholderSearchItemEl);
-    }
+// clears old elements when a new search is conducted so that the list can be re-rendered cleanly
+function clearOldSearches() {
+    $('.searched_items').remove();
 }
 
 // inject / display the score list into HTML
 function renderPastSearches() {
+    $('.searched_items').remove();
     // sort the searches from most recent to farthest back in time
     if (userPastSearches.length > 5) {
         var iterateLength = 5;
@@ -66,22 +55,21 @@ function renderPastSearches() {
     else if (userPastSearches.length <= 5 && userPastSearches.length > 0) {
         var iterateLength = userPastSearches.length;
     }
-    else if (userPastSearches.length === null) {
-        return;
+    else if (userPastSearches.length == 0) {
+        var placeholderSearchItemEl = $(`<li class="dropdown-item searched_items" >Prior coin searches will appear here...</li>`)
+        searchesContainerEl.append(placeholderSearchItemEl);
     }
     // console.log(userPastSearches);
     for (var i = 0; i < iterateLength; i++) {
         // declare the particular list item from the todos array
         var coin = userPastSearches[i].searchedCoin;
         // for that list item make the list item in the DOM
-        // old
-        // var searchItemEl = $(`<li class="list-group-item list-group-item-action list-group-item-dark text-center col-3" >${coin}</li>`);
-        var searchItemEl = $(`<li class="dropdown-item"">${coin}</li>`);
+        
+        var searchItemEl = $(`<li class="dropdown-item searched_items" data-coin="${coin}">${coin}</li>`);
         // populate its text as array value
         searchesContainerEl.append(searchItemEl);
     }
 }
-
 
 function storeCoinSearch(searchedCoinName) {
     if (userPastSearches === null) {
@@ -95,43 +83,3 @@ function storeCoinSearch(searchedCoinName) {
     // store userPastSearches item in local storage as strings 
     localStorage.setItem("userPastSearches", JSON.stringify(userPastSearches));
 }
-
-// function fetchyBoi() {
-//     // Fetch go here
-// }; 
-
-
-
-// var coinSymbolKVP = [
-//     {name:"Bitcoin", symbol: "BTC"},
-//     {name:"Ethereum", symbol:  "ETH"},
-//     {name:"Tether", symbol:  "USDT"},
-//     {name:"ION", symbol:"ION"},
-//     {name:"Binance Coin", symbol:  "BNB"	},
-//     {name:"USD Coin", symbol:  "USDC"},
-//     {name:"XRPV",symbol: "XRP"	},
-//     {name:"Solana", symbol:  "SOL"	},
-//     {name:"Cardano", symbol:  "ADA"},
-//     {name:"Terra", symbol:  "LUNA"},
-//     {name:"HEX", symbol:  "HEX"},
-//     {name:"Avalanche", symbol:  "AVAX"	},
-//     {name:"Dogecoin", symbol:  "DOGE"	},
-//     {name:"Binance", symbol:  "BUSD"},	
-//     {name:"Polkadot", symbol:  "DOT"},
-//     {name:"Terra", symbol:  "UST"	},
-//     {name:"SHIBA INU", symbol: "SHIB"},	
-//     {name:"Wrapped", symbol:  "BiB"},
-//     {name:"Polygon", symbol:  "MATIC"},	
-//     {name:"Crypto.com coin", symbol:  "CRO"},
-//     {name:"NEAR Protocol", symbol:  "NEAR"	},
-//     {name:"Dai", symbol:"DAI"	},
-//     {name:"Litecoin", symbol:  "LTC"},
-//     {name:"Cosmos", symbol:  "ATOM"},
-//     {name:"Chainlink", symbol:  "LINK"},	
-//     {name:"Uniswap", symbol:  "UNI"} ];
-
-// for (i = 0; i < coinSymbolKVP.length; i++) {
-//     // dynamically populate dropdown list of coin items
-//     var listEl = $(`<li class="dropdown-item" data-coin="${coinSymbolKVP[i].name}">${coinSymbolKVP[i].name}</li>`);
-//     coinsDropdown.append(listEl);
-// }
