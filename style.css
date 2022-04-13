@@ -7,6 +7,9 @@
     background-image: url(./assets/images/coins.jpg);
     background-size: cover;
     background-position: center;
+    border-style: solid;
+    border-color: rgb(56, 58, 89);
+    border-top-width: 15px;
     height: 50vh;
     width: 100%;
 }
@@ -15,25 +18,75 @@
     font-size: 25px;
 }
 
-.navbar {
-    color: blue;
+h3 {
+    padding-right: 35rem;
+    color: white;
     font-weight: bold;
+    font-style: italic;
 }
 
-.form-control {
-    color: black;
+.navbar {
+    color: rgb(56, 58, 89);
+    background-color: rgb(56, 58, 89);
+    ;
+    text-decoration: none;
+    font-weight: bold;
+    justify-content: space-evenly;
+    margin-bottom: 15px;
+    border-bottom: solid;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+    padding-right: 50px;
+    padding-left: 0.5rem;
+}
+
+.nav-link {
+    color: white;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.nav-link:hover {
+    color: gold;
+}
+
+.nav-item {
+    color: rgb(56, 58, 89);
+    font-weight: bold;
+    text-align: center;
 }
 
 .search-btn {
     color: white;
-    background-color: blue;
+    background-color: rgb(56, 58, 89);
+    border-color: white;
+    margin-right: 20px;
 }
 
 .search-btn:hover {
-    color: white;
+    color: gold;
+
 }
 
 .search-btn:active {
-    background-color: blue;
+    background-color: rgb(56, 58, 89);
     box-shadow: 0 5px white;
     transform: translateY(4px);
+}
+
+#convert-widget {
+    background-color: rgb(56, 58, 89);
+    text-align: center;
+}
+
+#convert-link {
+    text-decoration: none;
+    font-style: italic;
+    color: white;
+    font-size: 20px;
+}
+
+span {
+    color: gold;
+}
