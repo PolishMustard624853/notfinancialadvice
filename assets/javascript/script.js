@@ -29,7 +29,7 @@ document.body.appendChild(coinVolume);
 
 
 // use jQuery 
-var bodyEl = $('body');
+var geckoList = $('.list-group-numbered');
 
 getTrending();
 // define function that gets coingecko trending data
@@ -40,17 +40,19 @@ function getTrending() {
 
         // console.log(myTrendingData.coins[0].item.name);
         var coinPopularLength = myTrendingData.coins.length;
-        
+            console.log(coinPopularLength);
         for (var i = 0; i < coinPopularLength; i++) {
             var coinPopularName = myTrendingData.coins[i].item.name;
+            console.log(coinPopularName);
             // Top-7 trending coins on CoinGecko as searched by users in the last 24 hours (Ordered by most popular first)
             // incorporate small img of coin next to name
-            var coinImageEl = $(`<img src="${myTrendingData.coins[i].item.small}">`);
+            // var coinImageEl = $(`<img src="${myTrendingData.coins[i].item.small}">`);
             // call on the top 7 coins from the coingecko top 7 list
-            var coinPopularLi = $(`<li class="coinPopularListItemEl">${coinPopularName}</li>`);
+            // var coinPopularLi = $(`<li class="coinPopularListItemEl">${coinPopularName}</li>`);
+            var coinPopularLi = $(`<li class="list-group-item d-flex justify-content-between align-items-start"><div class="ms-2 me-auto"><div class="fw-bold">Subheading</div>${coinPopularName}</div><img src="${myTrendingData.coins[i].item.small}"></li>`);
             // append elements to their appropriate parent tags
-            coinPopularLi.append(coinImageEl);
-            bodyEl.append(coinPopularLi);
+            // coinPopularLi.append(coinImageEl);
+            geckoList.append(coinPopularLi);
         }
 
     });
