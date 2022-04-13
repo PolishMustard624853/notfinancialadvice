@@ -2,15 +2,16 @@
 var coinName = document.createElement('p');
 var coinPrice = document.createElement('p');
 var coinVolume = document.createElement('p');
-var coinCirc = document.createElement('p');
-var coinTotal = document.createElement('p');
-var coinMax = document.createElement('p');
+var supplyList = $('#supply_list');
+// var coinCirc = document.createElement('p');
+// var coinTotal = document.createElement('p');
+// var coinMax = document.createElement('p');
 
 // call function that gets price/volume/coinname info
-getTicker();
+getCoinStats();
 
 // define function that gets price/volume/coinname info
-function getTicker() {
+function getCoinStats() {
     fetch(`https://api.alternative.me/v2/ticker/bitcoin/`)
     .then(response => response.json())
     .then(myTickerData => {
@@ -22,21 +23,23 @@ function getTicker() {
         coinPrice.textContent = "$" + (myTickerData.data[1].quotes.USD.price).toLocaleString("en-US");
         // console.log(myTickerData.data[1].quotes.USD.volume_24h);
         coinVolume.textContent = "Volume traded in 24 hours: " + (myTickerData.data[1].quotes.USD.volume_24h).toLocaleString("en-US");
-        coinCirc.textContent = "Circulating supply: " + (myTickerData.data[1].circulating_supply).toLocaleString("en-US"); 
-        // coinPrice.textContent = myTickerData.data[1].quotes.USD.price
-        // toLocaleString adds commas for readability 
-        coinTotal.textContent = "Total supply: " + (myTickerData.data[1].total_supply).toLocaleString("en-US");
-        // console.log(myTickerData.data[1].quotes.USD.volume_24h);
-        coinMax.textContent = "Max supply: " + (myTickerData.data[1].max_supply).toLocaleString("en-US");
+
+        supplyList.append(coinName);
+        supplyList.append(coinPrice);
+        supplyList.append(coinVolume);
+        
+        var coinCirc = $(`<li class="list-group-item d-flex justify-content-between align-items-center">Circulating supply:<span class="badge bg-primary rounded-pill">${(myTickerData.data[1].circulating_supply).toLocaleString("en-US")}</span></li>`);
+        var coinTotal = $(`<li class="list-group-item d-flex justify-content-between align-items-center">Total supply:<span class="badge bg-primary rounded-pill">${(myTickerData.data[1].total_supply).toLocaleString("en-US")}</span></li>`);
+        var coinMax = $(`<li class="list-group-item d-flex justify-content-between align-items-center">Max supply:<span class="badge bg-primary rounded-pill">${(myTickerData.data[1].max_supply).toLocaleString("en-US")}</span></li>`);
+        supplyList.append(coinCirc);
+        supplyList.append(coinTotal);
+        supplyList.append(coinMax);
     });
 }
 
-document.body.appendChild(coinName);
-document.body.appendChild(coinPrice);
-document.body.appendChild(coinVolume);
-document.body.appendChild(coinCirc);
-document.body.appendChild(coinTotal);
-document.body.appendChild(coinMax);
+// document.body.appendChild(coinCirc);
+// document.body.appendChild(coinTotal);
+// document.body.appendChild(coinMax);
 
 // use jQuery 
 var geckoList = $('.list-group-numbered');
