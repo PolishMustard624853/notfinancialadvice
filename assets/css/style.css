@@ -97,3 +97,7 @@ span {
 .form-control {
     font-style: italic;
 }
+
+.results-container {
+    border-style: solid;
+}
