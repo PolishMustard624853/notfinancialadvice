@@ -37,13 +37,13 @@ for (i = 0; i < coinSymbolKVP.length; i++) {
 }
 
 // add event listener to the 
-coinsDropdownContainer.addEventListener("click", function(e) {
-    // use event delegation to ensure clean event matches the link list items 
-    if (e.target.matches('.dropdown-item')){
-        // console.log(e.target.dataset.coin)
-        storeCoinSearch(e.target.dataset.coin);
-    }
-});
+// coinsDropdownContainer.addEventListener("click", function(e) {
+//     // use event delegation to ensure clean event matches the link list items 
+//     if (e.target.matches('.dropdown-item')){
+//         // console.log(e.target.dataset.coin)
+//         storeCoinSearch(e.target.dataset.coin);
+//     }
+// });
 
 
 // LOCAL STORAGE
