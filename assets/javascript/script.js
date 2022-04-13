@@ -84,3 +84,5 @@ function getTrending() {
 //     {name:"Cosmos", symbol:  "ATOM"},
 //     {name:"Chainlink", symbol:  "LINK"},	
 //     {name:"Uniswap", symbol:  "UNI"} ];
+
+
