@@ -4,12 +4,13 @@
 }
 
 .hero {
-    background-image: url(./assets/images/coins.jpg);
+    background-image: url(../images/coins.jpg);
     background-size: cover;
     background-position: center;
     border-style: solid;
-    border-color: rgb(56, 58, 89);
-    border-top-width: 15px;
+    border-color: gold;
+    border-left: none;
+    border-right: none;
     height: 50vh;
     width: 100%;
 }
@@ -19,7 +20,7 @@
 }
 
 h3 {
-    padding-right: 35rem;
+    padding-right: 32rem;
     color: white;
     font-weight: bold;
     font-style: italic;
@@ -34,6 +35,7 @@ h3 {
     justify-content: space-evenly;
     margin-bottom: 15px;
     border-bottom: solid;
+    border-color: gold;
 }
 
 .navbar-expand-lg .navbar-nav .nav-link {
@@ -55,6 +57,7 @@ h3 {
     color: rgb(56, 58, 89);
     font-weight: bold;
     text-align: center;
+    justify-content: center;
 }
 
 .search-btn {
@@ -84,9 +87,13 @@ h3 {
     text-decoration: none;
     font-style: italic;
     color: white;
-    font-size: 20px;
+    font-size: 20px;;
 }
 
 span {
     color: gold;
+}
+
+.form-control {
+    font-style: italic;
 }
