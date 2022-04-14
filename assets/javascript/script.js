@@ -6,8 +6,8 @@ let redditList = $('#reddit');
 
 let messariURL = 'https://data.messari.io/api/v2/assets?limit=500';
 
-let altMeURL = 'https://api.alternative.me/v2/ticker/?limit=3000/';
-// let altMeAlsoURL = 'https://api.alternative.me/v2/listings/';
+// let altMeURL = 'https://api.alternative.me/v2/ticker/?limit=3000/';
+// // let altMeAlsoURL = 'https://api.alternative.me/v2/listings/';
 
 // get user form
 var userCoinInputEl = $('#coin_input');
@@ -16,9 +16,6 @@ var searchButton = $('.search-btn');
 
 // event listeners for button click or search
 searchButton.on("click", function () {
-        // call coinSearch(userCoinInputEl.val());
-        // console.log(userCoinInputEl.val())
-        // var test = userCoinInputEl.val();
         clearOldSearches();
         getMessariData(userCoinInputEl.val());
     });
@@ -29,8 +26,6 @@ userCoinInputEl.keydown( e => {
         // var test = userCoinInputEl.val();
         clearOldSearches();
         getMessariData(userCoinInputEl.val());
-        // call function that gets price/volume/coinname info
-        // getAltMeData(userCoinInputEl.val());
     } 
 });    
 
@@ -41,21 +36,20 @@ var coinsDropdownContainer = document.querySelector('#past_search_container');
 coinsDropdownContainer.addEventListener("click", function(e) {
     // use event delegation to ensure clean event matches the link list items 
     if (e.target.matches('.dropdown-item')){
-        // console.log(e.target.dataset.coin);
         clearOldSearches();
         userCoinInputEl.val(e.target.dataset.coin);
         getMessariData(userCoinInputEl.val());
-        // call function that gets price/volume/coinname info
-        // getAltMeData(userCoinInputEl.val());
     }
 });
 
 // clears old elements when a new search is conducted so that the list can be re-rendered cleanly
 function clearOldSearches() {
-    $('list-group-item').remove();
+    $('.searched-list-group-item').remove();
 }
 
 var index = -1;
+
+
 
 function getMessariData(userEntry) {
     fetch(messariURL)
@@ -68,24 +62,24 @@ function getMessariData(userEntry) {
             alert("Coin not found please check your spelling or try searching for a different coin.");
             return;
         }
-    
+        console.log(listingsData.data[index])
         coinName.textContent = listingsData.data[index].name; 
         
         supplyList.append(coinName);
         
-        var coinActivAdds = $(`<li class="list-group-item d-flex justify-content-between align-items-center">Active address:<span class="badge bg-primary rounded-pill">${(messariBlobFull[index].metrics.blockchain_stats_24_hours.count_of_active_addresses).toLocaleString("en-US")}</span></li>`);
-        var coinTxnVol = $(`<li class="list-group-item d-flex justify-content-between align-items-center">Total Transactions in Past 24 hours:<span class="badge bg-primary rounded-pill">${(messariBlobFull[index].metrics.blockchain_stats_24_hours.transaction_volume).toLocaleString("en-US")}</span></li>`);
-        var coinCirc = $(`<li class="list-group-item d-flex justify-content-between align-items-center">Total Circulation:<span class="badge bg-primary rounded-pill">${(messariBlobFull[index].metrics.supply.circulating).toLocaleString("en-US")}</span></li>`);
-        var coinOutstd = $(`<li class="list-group-item d-flex justify-content-between align-items-center">Outstanding coins:<span class="badge bg-primary rounded-pill">${(messariBlobFull[index].metrics.supply_activity.outstanding).toLocaleString("en-US")}</span></li>`);
-        var coinSpplActiv1yPercent = $(`<li class="list-group-item d-flex justify-content-between align-items-center">Percent  Supply Activity in Past Year:<span class="badge bg-primary rounded-pill">${messariBlobFull[index].metrics.supply_activity._1y_percent}%</span></li>`);
+        var coinActivAdds = $(`<li class="list-group-item searched-list-group-item d-flex justify-content-between align-items-center">Active address:<span class="badge bg-primary rounded-pill">${(messariBlobFull[index].metrics.blockchain_stats_24_hours.count_of_active_addresses).toLocaleString("en-US")}</span></li>`);
+        var coinTxnVol = $(`<li class="list-group-item searched-list-group-item d-flex justify-content-between align-items-center">Total Transactions in Past 24 hours:<span class="badge bg-primary rounded-pill">${(messariBlobFull[index].metrics.blockchain_stats_24_hours.transaction_volume).toLocaleString("en-US")}</span></li>`);
+        var coinCirc = $(`<li class="list-group-item searched-list-group-item d-flex justify-content-between align-items-center">Total Circulation:<span class="badge bg-primary rounded-pill">${(messariBlobFull[index].metrics.supply.circulating).toLocaleString("en-US")}</span></li>`);
+        var coinOutstd = $(`<li class="list-group-item searched-list-group-item d-flex justify-content-between align-items-center">Outstanding coins:<span class="badge bg-primary rounded-pill">${(messariBlobFull[index].metrics.supply_activity.outstanding).toLocaleString("en-US")}</span></li>`);
+        var coinSpplActiv1yPercent = $(`<li class="list-group-item searched-list-group-item d-flex justify-content-between align-items-center">Percent  Supply Activity in Past Year:<span class="badge bg-primary rounded-pill">${messariBlobFull[index].metrics.supply_activity._1y_percent}%</span></li>`);
         supplyList.append(coinActivAdds);
         supplyList.append(coinTxnVol);
         supplyList.append(coinCirc);
         supplyList.append(coinOutstd);
         supplyList.append(coinSpplActiv1yPercent);
         
-        var coinRedditActive = $(`<li class="list-group-item d-flex justify-content-between align-items-center">Reddit Users Active:<span class="badge bg-primary rounded-pill">${(messariBlobFull[index].metrics.reddit.active_user_count).toLocaleString("en-US")}</span></li>`);
-        var coinRedditSubscribed = $(`<li class="list-group-item d-flex justify-content-between align-items-center">Reddit Users Subscribed:<span class="badge bg-primary rounded-pill">${(messariBlobFull[index].metrics.reddit.subscribers).toLocaleString("en-US")}</span></li>`);
+        var coinRedditActive = $(`<li class="list-group-item searched-list-group-item d-flex justify-content-between align-items-center">Reddit Users Active:<span class="badge bg-primary rounded-pill">${(messariBlobFull[index].metrics.reddit.active_user_count).toLocaleString("en-US")}</span></li>`);
+        var coinRedditSubscribed = $(`<li class="list-group-item searched-list-group-item d-flex justify-content-between align-items-center">Reddit Users Subscribed:<span class="badge bg-primary rounded-pill">${(messariBlobFull[index].metrics.reddit.subscribers).toLocaleString("en-US")}</span></li>`);
 
         redditList.append(coinRedditActive);
         redditList.append(coinRedditSubscribed);
@@ -97,20 +91,12 @@ function getMessariData(userEntry) {
 
 function getCoinIndexInBlob(blob, userInput) {
     var myIndex = -1;
-    // console.log(blob);
+    console.log(blob);
     if (blob[1] && blob[1].slug) {
         myIndex = blob.findIndex(function(blob) {
             return blob.slug == userInput;          
         });
     } 
-    if (blob[1] && blob[1].website_slug) {
-        if (myIndex < 0) {
-            myIndex = blob.findIndex(function(blob) {
-            return blob.website_slug == userInput;
-            }); 
-        }
-    }
-
     if (myIndex < 0) {
         myIndex = blob.findIndex(function(blob) {
         return blob.symbol == userInput;
@@ -135,40 +121,6 @@ function getCoinIndexInBlob(blob, userInput) {
     return myIndex;
 }
 
-
-
-// // define function that gets price/volume/coinname info
-// function getAltMeData(userEntry) {
-    
-//     fetch(altMeURL)
-//     .then(response => response.json())
-//     .then(myTickerData => {
-//         // extracts data of coin ID THEN you can ask for the subsequent properties
-//         // var altMeBlobFull = myTickerData.data;
-//         // var index = getCoinIndexInBlob(altMeBlobFull, userEntry);
-//         // if (index < 0) {
-//         //     alert("Coin not found please check your spelling or try searching for a different coin.");
-//         //     return;
-//         // }
-
-//         coinName.textContent = myTickerData.data[index].name; 
-//         // coinPrice.textContent = myTickerData.data[1].quotes.USD.price
-//         // toLocaleString adds commas for readability 
-//         coinPrice.textContent = "$" + (myTickerData.data[index].quotes.USD.price).toLocaleString("en-US");
-//         coinVolume.textContent = "Volume traded in 24 hours: " + (myTickerData.data[index].quotes.USD.volume_24h).toLocaleString("en-US");
-//         // append basic stats to container first
-//         supplyList.append(coinName);
-//         supplyList.append(coinPrice);
-//         supplyList.append(coinVolume);
-//         // append circulation content to container second
-//         var coinActivAdds = $(`<li class="list-group-item d-flex justify-content-between align-items-center">Circulating supply:<span class="badge bg-primary rounded-pill">${(myTickerData.data[index].circulating_supply).toLocaleString("en-US")}</span></li>`);
-//         var coinTxnVol = $(`<li class="list-group-item d-flex justify-content-between align-items-center">Total supply:<span class="badge bg-primary rounded-pill">${(myTickerData.data[index].total_supply).toLocaleString("en-US")}</span></li>`);
-//         var coinMax = $(`<li class="list-group-item d-flex justify-content-between align-items-center">Max supply:<span class="badge bg-primary rounded-pill">${(myTickerData.data[index].max_supply).toLocaleString("en-US")}</span></li>`);
-//         supplyList.append(coinActivAdds);
-//         supplyList.append(coinTxnVol);
-//         supplyList.append(coinMax);
-//     });
-// }
 
 // use jQuery 
 var geckoList = $('.list-group-numbered');
