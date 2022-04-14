@@ -73,8 +73,8 @@ h3 {
 .search-btn {
     color: white;
     background-color: rgb(56, 58, 89);
-    border-color: white;
-    margin-right: 20px;
+    border-color: gold;
+    margin-right: 10px;
 }
 
 .search-btn:hover {
@@ -108,11 +108,21 @@ span {
     font-style: italic;
 }
 
-.results-container {
-    border-style: solid;
-    margin-bottom: 10px;
-}
-
 h4 {
     text-align: center;
+}
+
+.btn-secondary {
+    color: white;
+    background-color: rgb(56, 58, 89);
+    border-color: gold;
+}
+
+footer {
+    text-align: center;
+}
+
+.disclaimer {
+    font-style: italic;
+    font-size: smaller;
 }
