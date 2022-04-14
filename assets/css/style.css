@@ -22,16 +22,17 @@ body {
 
 .container-fluid {
     font-size: 25px;
+    display: flex;
+    justify-content: space-between;
 }
 
 h3 {
-    padding-right: 63rem;
     color: white;
     font-weight: bold;
     font-style: italic;
 }
 
-.navbar {
+#main-navbar {
     color: rgb(56, 58, 89);
     background-color: rgb(56, 58, 89);
     ;
@@ -41,6 +42,9 @@ h3 {
     margin-bottom: 15px;
     border-bottom: solid;
     border-color: gold;
+}
+#navbarSupportedContent {
+    min-width: 325px;
 }
 
 
