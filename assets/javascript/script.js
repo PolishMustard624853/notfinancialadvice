@@ -6,6 +6,7 @@ let redditList = $('#reddit');
 
 // get user form
 var userCoinInputEl = $('#coin_input');
+userCoinInputEl.val("Enter coin here");
 // hook into button it clicking when a keyup equals enter in the form field
 var searchButton = $('.search-btn');
 
@@ -45,9 +46,17 @@ function getMessariProto(userEntry) {
     let messariURL = `https://data.messari.io/api/v1/assets/${userEntry}/metrics`
 
     fetch(messariURL)
-    .then( response => response.json())
+    .then( function(response) {
+        if (response.status !== 200) {
+            userCoinInputEl.val("Display error");
+        }
+    return response.json();
+    })
     .then(messariData => {
         console.log(messariData);
+        if (messariData.status.error_code === 404) {
+            userCoinInputEl.val("Coin not recognized");
+        }
         // all time high price
         if (messariData.data.market_data.price_usd) {
             var coinCurrentPrice = $(`<li class="list-group-item searched-list-group-item d-flex justify-content-between align-items-center">Current price (USD): <span class="badge bg-primary rounded-pill">$ ${(messariData.data.market_data.price_usd).toLocaleString("en-US")}</span></li>`);
@@ -129,12 +138,13 @@ function getMessariProto(userEntry) {
             holderLevelList.append(coinHighPrice);
         }
 
+        // reddit active user count
         if (messariData.data.reddit.active_user_count) {
             var coinRedditActive = $(`<li class="list-group-item searched-list-group-item d-flex justify-content-between align-items-center">Reddit Users Active:<span class="badge bg-primary rounded-pill">${(messariData.data.reddit.active_user_count).toLocaleString("en-US")}</span></li>`);
             redditList.append(coinRedditActive);
         }
         else {
-            var coinHighPrice = $(`<li class="list-group-item searched-list-group-item d-flex justify-content-between align-items-center">No data available for reddit activity</li>`);
+            var coinRedditActive = $(`<li class="list-group-item searched-list-group-item d-flex justify-content-between align-items-center">No data available for reddit activity</li>`);
             redditList.append(coinRedditActive);
         }
         if (messariData.data.reddit.subscribers) {
@@ -142,7 +152,7 @@ function getMessariProto(userEntry) {
             redditList.append(coinRedditSubscribed);
         }
         else {
-            var coinHighPrice = $(`<li class="list-group-item searched-list-group-item d-flex justify-content-between align-items-center">No data available for reddit community</li>`);
+            var coinRedditSubscribed = $(`<li class="list-group-item searched-list-group-item d-flex justify-content-between align-items-center">No data available for reddit community</li>`);
             redditList.append(coinRedditSubscribed);
         }
         
@@ -164,7 +174,12 @@ getTrending();
 // define function that gets coingecko trending data
 function getTrending() {
     fetch(`https://api.coingecko.com/api/v3/search/trending`)
-    .then(response => response.json())
+    .then( function(response) {
+        if (response.status !== 200) {
+            userCoinInputEl.val("Display error");
+        }
+    return response.json();
+    })
     .then(myTrendingData => {
         var coinPopularLength = myTrendingData.coins.length;
         for (var i = 0; i < coinPopularLength; i++) {
