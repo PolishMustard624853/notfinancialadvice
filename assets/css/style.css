@@ -1,7 +1,7 @@
 * {
     padding: 0;
     margin: 0;
-}   
+}
 
 body {
     background-color: rgb(56, 58, 89);
@@ -43,6 +43,7 @@ h3 {
     border-bottom: solid;
     border-color: gold;
 }
+
 #navbarSupportedContent {
     min-width: 325px;
 }
@@ -97,7 +98,8 @@ h3 {
     text-decoration: none;
     font-style: italic;
     color: white;
-    font-size: 20px;;
+    font-size: 20px;
+    ;
 }
 
 span {
@@ -125,4 +127,17 @@ footer {
 .disclaimer {
     font-style: italic;
     font-size: smaller;
+}
+
+.git-hub {
+    display: flex;
+    justify-content: center;
+}
+
+.githubicon {
+    height: 3em;
+    content: url(../images/GitHub.png);
+    object-fit: contain;
+    filter: invert(1);
+    margin-bottom: 10px;
 }
