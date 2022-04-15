@@ -30,6 +30,8 @@ For this project, we took on the challenge to create a cryptocurrency dashboard.
 
 ## Screencaptures
 <!-- Screenshots -->
+| Image | Description |
+| --- | ----------- |
 | ![./assets/screencaptures/screencapture1.gif)](./assets/screencaptures/screencapture1.gif) | The live application |
 
 
