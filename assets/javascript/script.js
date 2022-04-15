@@ -1,12 +1,12 @@
 // initialize the elements that are going to contain the info from the API call
 let coinName = document.createElement('p');
 let topLevelList = $('#day_list');
+topLevelList.append(`<li class="list-group-item searched-list-group-item d-flex justify-content-between align-items-center" style="color:rgb(124, 124, 124);font-style:italic;">Search for a coin to see its metrics...</li>`);
 let holderLevelList = $('#holder_list');
 let redditList = $('#reddit');
 
 // get user form
 var userCoinInputEl = $('#coin_input');
-userCoinInputEl.val("Enter coin here");
 // hook into button it clicking when a keyup equals enter in the form field
 var searchButton = $('.search-btn');
 
@@ -105,7 +105,7 @@ function getMessariProto(userEntry) {
 
         // percent chage last year trades past 24 hours
         if (messariData.data.roi_data.percent_change_last_1_year) {
-            if (messariData.data.market_data.percent_change_usd_last_24_hours > 0) {
+            if (messariData.data.market_data.percent_change_last_1_year > 0) {
                 var coinChangeAnnual = $(`<li class="list-group-item searched-list-group-item d-flex justify-content-between align-items-center">Percent change over this past year <span class="badge bg-success rounded-pill">${(messariData.data.roi_data.percent_change_last_1_year).toLocaleString("en-US")}</span></li>`);
                 holderLevelList.append(coinChangeAnnual);
             }
@@ -130,7 +130,7 @@ function getMessariProto(userEntry) {
         }
         // all time high price
         if (messariData.data.all_time_high.price) {
-            var coinHighPrice = $(`<li class="list-group-item searched-list-group-item d-flex justify-content-between align-items-center">Price all time high (USD): <span class="badge bg-success rounded-pill">$ ${(messariData.data.all_time_high.price).toLocaleString("en-US")}</span></li>`);
+            var coinHighPrice = $(`<li class="list-group-item searched-list-group-item d-flex justify-content-between align-items-center">Price all time high (USD): <span class="badge bg-primary rounded-pill">$ ${(messariData.data.all_time_high.price).toLocaleString("en-US")}</span></li>`);
             holderLevelList.append(coinHighPrice);            
         }
         else {
