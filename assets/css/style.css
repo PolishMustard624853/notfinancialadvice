@@ -75,6 +75,9 @@ h3 {
     background-color: rgb(56, 58, 89);
     border-color: gold;
     margin-right: 10px;
+    margin-right: 8px;
+    margin-top: 9px;
+    height: fit-content;
 }
 
 .search-btn:hover {
@@ -106,6 +109,9 @@ span {
 
 .form-control {
     font-style: italic;
+    margin-right: 8px;
+    margin-top: 9px;
+    height: fit-content;
 }
 
 h4 {
